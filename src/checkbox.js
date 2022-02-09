@@ -1,12 +1,18 @@
 import { useState } from "react";
 
 function App() {
-  const [value, setValue] = useState({ normal: "", texto: "", select: "" });
-  const handleChange = (e) => {
-    console.log(e.target.name);
+  const [value, setValue] = useState({
+    normal: "",
+    texto: "",
+    select: "",
+    checkbox: false,
+  });
+  const handleChange = ({ target }) => {
     setValue((state) => ({
       ...state,
-      [e.target.name]: e.target.value,
+      [target.name]: target.type === "checkbox" 
+        ? target.checked 
+        : target.value,
     }));
   };
   console.log(value);
@@ -28,6 +34,13 @@ function App() {
         <option value="hub3">HUB 3</option>
         <option value="hub4">HUB 4</option>
       </select>
+
+      <input
+        type="checkbox"
+        name="checkbox"
+        onChange={handleChange}
+        checked={value.checkbox}
+      />
     </div>
   );
 }
